@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.moreira.models.Product;
-import br.com.moreira.services.ProductsService;
+import br.com.moreira.services.impl.ProductsServiceImpl;
 
 @RestController
 @RequestMapping(value = "/products")
 public class ProductsController {
 
 	@Autowired
-	private ProductsService service;
-	
+	private ProductsServiceImpl service;
+
 	@GetMapping
 	public List<Product> products() {
 		return service.allProducts();

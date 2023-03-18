@@ -2,18 +2,13 @@ package br.com.moreira.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import br.com.moreira.models.Product;
-import br.com.moreira.repositories.ProductsRepository;
 
-public class ProductsService {
-	
-	@Autowired
-	private ProductsRepository repository;
+public interface ProductsService {
 
-	public List<Product> allProducts() {
-		return repository.findAll();
-	}
-
+	/**
+	 * Method that returns all products
+	 * @return
+	 */
+	public List<Product> allProducts();
 }
