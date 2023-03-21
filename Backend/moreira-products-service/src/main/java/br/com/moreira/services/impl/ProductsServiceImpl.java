@@ -10,7 +10,7 @@ import br.com.moreira.repositories.ProductsRepository;
 import br.com.moreira.services.ProductsService;
 
 @Service
-public class ProductsServiceImpl implements ProductsService{
+public class ProductsServiceImpl implements ProductsService {
 
 	@Autowired
 	private ProductsRepository repository;
