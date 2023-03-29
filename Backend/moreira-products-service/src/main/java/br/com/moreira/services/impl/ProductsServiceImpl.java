@@ -14,6 +14,10 @@ public class ProductsServiceImpl implements ProductsService {
 
 	@Autowired
 	private ProductsRepository repository;
+	
+	public ProductsServiceImpl(ProductsRepository repository) {
+		this.repository = repository;
+	}
 
 	@Override
 	public Page<Product> allProducts(Pageable pageable) {		

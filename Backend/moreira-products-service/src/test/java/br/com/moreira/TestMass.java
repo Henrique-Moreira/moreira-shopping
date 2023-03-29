@@ -45,4 +45,9 @@ public final class TestMass {
 	public static Page<Product> getPageProduct() {
 		return new PageImpl<>(getProductList(), PageRequest.of(0, 2), 2);
 	}
+	
+	public static Page<Product> getEmptyPageProduct() {
+		List<Product> listProducts = new ArrayList<>();
+		return new PageImpl<>(listProducts);
+	}
 }
