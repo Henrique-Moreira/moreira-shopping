@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +32,16 @@ public class ProductsController {
 	@GetMapping
 	public ResponseEntity<Page<Product>> products(@ParameterObject Pageable pageable) {
 		return ResponseEntity.ok(service.allProducts(pageable));
+	}
+    
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "When does not found any product in the database.")})
+    @Operation(summary = "List of products paginated according category id",
+    			description = "The default size is 20, use the parameter size to change the default value",
+    			tags = {"product"})
+	@GetMapping("{categoryId}")
+	public ResponseEntity<Page<Product>> findByCategoryId(@PathVariable Long categoryId , @ParameterObject Pageable pageable) {
+		return ResponseEntity.ok(service.findByCategoryId(categoryId, pageable));
 	}
 }
