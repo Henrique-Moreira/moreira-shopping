@@ -41,7 +41,7 @@ public class ProductsController {
     			description = "The default size is 20, use the parameter size to change the default value",
     			tags = {"product"})
 	@GetMapping("{categoryId}")
-	public ResponseEntity<Page<Product>> findByCategoryId(@PathVariable Long categoryId , @ParameterObject Pageable pageable) {
+	public ResponseEntity<Page<Product>> findByCategoryId(@PathVariable int categoryId , @ParameterObject Pageable pageable) {
 		return ResponseEntity.ok(service.findByCategoryId(categoryId, pageable));
 	}
 }

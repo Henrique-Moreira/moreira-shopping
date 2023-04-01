@@ -8,5 +8,5 @@ import br.com.moreira.models.Product;
 
 public interface ProductsRepository extends JpaRepository<Product, Long>{
 
-	Page<Product> findByCategoryId(Long id, Pageable pageable);
+	Page<Product> findByCategoryId(int id, Pageable pageable);
 }

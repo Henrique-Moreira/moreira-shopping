@@ -20,5 +20,5 @@ public interface ProductsService {
      * @param id the category id.
 	 * @return A page of {@link Product} objects that match the pagination and id of category provided.
 	 */
-	public Page<Product> findByCategoryId(Long id, Pageable pageable);
+	public Page<Product> findByCategoryId(int id, Pageable pageable);
 }
