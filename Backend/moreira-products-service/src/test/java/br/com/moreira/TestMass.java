@@ -8,9 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import br.com.moreira.models.Category;
 import br.com.moreira.models.Product;
 
@@ -37,6 +34,7 @@ public final class TestMass {
 	
 	public static List<Product> getProductList() {
 		List<Product> listProducts = new ArrayList<>();
+		listProducts.add(getProduct());
 		listProducts.add(getProduct());
 		
 		return listProducts;
