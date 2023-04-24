@@ -51,6 +51,10 @@ class ProductsControllerTest {
 	private ProductsController controller;
 
 	private final String initialUrl = "/product";
+	private final String PARAM_PAGE = "page";
+	private final String PARAM_SIZE = "size";
+	private final String DEFAULT_PAGE = "0";
+	private final String DEFAULT_SIZE = "2";
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -87,19 +91,19 @@ class ProductsControllerTest {
 	@Test
 	void shouldReturnPageOfProductsById() throws Exception {		
 		when(service.findById(anyInt(), any(Pageable.class))).thenReturn(TestMass.getPageProduct());
-		
+
 		MockHttpServletRequestBuilder request = get(initialUrl.concat("/1"))
 				.contentType(MediaType.APPLICATION_JSON)
-				.param("page", "0")
-				.param("size", "2");
-		
+				.param(PARAM_PAGE, String.valueOf(DEFAULT_PAGE))
+				.param(PARAM_SIZE, String.valueOf(DEFAULT_SIZE));
+
 		mockMvc.perform(request)
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", notNullValue()))
 				.andExpect(jsonPath("$.totalElements", is(2)))
 				.andExpect(jsonPath("$.content[0].id", is(1)));
-		
+
 		verify(service).findById(eq(1), any(Pageable.class));
 	}
 
@@ -107,19 +111,19 @@ class ProductsControllerTest {
 	void shouldReturnEmptyPageOfProductsById() throws Exception {		
 		when(service.findById(anyInt(), any(Pageable.class))).thenReturn(TestMass.getEmptyPageProduct());
 		ArrayList<Object> emptyArrayList = new ArrayList<>();
-		
+
 		MockHttpServletRequestBuilder request = get(initialUrl.concat("/100"))				
 		        .contentType(MediaType.APPLICATION_JSON)
-		        .param("page", "0")
-		        .param("size", "2");
-		
+		        .param(PARAM_PAGE, String.valueOf(DEFAULT_PAGE))
+		        .param(PARAM_SIZE, String.valueOf(DEFAULT_SIZE));
+
 		mockMvc.perform(request)
 				.andDo(print())
 		        .andExpect(status().isOk())
 		        .andExpect(jsonPath("$", notNullValue()))
 		        .andExpect(jsonPath("$.totalElements", is(0)))
 		        .andExpect(jsonPath("$.content", is(emptyArrayList)));
-		
+
 		verify(service).findById(eq(100), any(Pageable.class));
 	}
 
@@ -129,16 +133,16 @@ class ProductsControllerTest {
 		
 		MockHttpServletRequestBuilder request = get(initialUrl.concat("/category/1"))				
 		        .contentType(MediaType.APPLICATION_JSON)
-		        .param("page", "0")
-		        .param("size", "2");
-		
+		        .param(PARAM_PAGE, String.valueOf(DEFAULT_PAGE))
+		        .param(PARAM_SIZE, String.valueOf(DEFAULT_SIZE));
+
 		mockMvc.perform(request)
 				.andDo(print())
 		        .andExpect(status().isOk())
 		        .andExpect(jsonPath("$", notNullValue()))
 		        .andExpect(jsonPath("$.totalElements", is(2)))
 		        .andExpect(jsonPath("$.content[0].id", is(1)));
-		
+
 		verify(service).findByCategoryId(eq(1), any(Pageable.class));
 	}
 
@@ -146,19 +150,19 @@ class ProductsControllerTest {
 	void shouldReturnEmptyPageOfProductsByCategoryId() throws Exception {		
 		when(service.findByCategoryId(anyInt(), any(Pageable.class))).thenReturn(TestMass.getEmptyPageProduct());
 		ArrayList<Object> emptyArrayList = new ArrayList<>();
-		
+
 		MockHttpServletRequestBuilder request = get(initialUrl.concat("/category/100"))				
 		        .contentType(MediaType.APPLICATION_JSON)
-		        .param("page", "0")
-		        .param("size", "2");
-		
+		        .param(PARAM_PAGE, String.valueOf(DEFAULT_PAGE))
+		        .param(PARAM_SIZE, String.valueOf(DEFAULT_SIZE));
+
 		mockMvc.perform(request)
 				.andDo(print())
 		        .andExpect(status().isOk())
 		        .andExpect(jsonPath("$", notNullValue()))
 		        .andExpect(jsonPath("$.totalElements", is(0)))
 		        .andExpect(jsonPath("$.content", is(emptyArrayList)));
-		
+
 		verify(service).findByCategoryId(eq(100), any(Pageable.class));
 	}
 }
