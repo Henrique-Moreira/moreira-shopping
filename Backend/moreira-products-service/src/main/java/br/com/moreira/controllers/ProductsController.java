@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
-@RequestMapping(value = "/products")
+@RequestMapping(value = "/product")
 public class ProductsController {
 
 	@Autowired
@@ -37,10 +37,21 @@ public class ProductsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation"),
             @ApiResponse(responseCode = "400", description = "When does not found any product in the database.")})
+    @Operation(summary = "Product paginated according id",
+    			description = "The default size is 20, use the parameter size to change the default value",
+    			tags = {"product"})
+	@GetMapping("/{productId}")
+	public ResponseEntity<Page<Product>> findById(@PathVariable int productId , @ParameterObject Pageable pageable) {
+		return ResponseEntity.ok(service.findById(productId, pageable));
+	}
+    
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "When does not found any product in the database.")})
     @Operation(summary = "List of products paginated according category id",
     			description = "The default size is 20, use the parameter size to change the default value",
     			tags = {"product"})
-	@GetMapping("{categoryId}")
+	@GetMapping("category/{categoryId}")
 	public ResponseEntity<Page<Product>> findByCategoryId(@PathVariable int categoryId , @ParameterObject Pageable pageable) {
 		return ResponseEntity.ok(service.findByCategoryId(categoryId, pageable));
 	}
