@@ -61,6 +61,27 @@ class ProductsServiceImplTest {
 	}
 	
 	@Test
+	void shouldReturnPageOfProductsById() {
+		when(repository.findById(anyInt(), any(Pageable.class))).thenReturn(TestMass.getPageProduct());
+
+		Page<Product> response = this.service.findById(1, pageable);
+
+		verify(repository, times(1)).findById(anyInt(), any(Pageable.class));
+		assertEquals(TestMass.getPageProduct(), response);		
+	}
+	
+	@Test
+	void shouldReturnEmptyById() {		
+		when(repository.findById(anyInt(), any(Pageable.class))).thenReturn(TestMass.getEmptyPageProduct());
+		
+		Page<Product> response = this.service.findById(1, pageable);
+		
+		verify(repository, times(1)).findById(anyInt(), any(Pageable.class));	
+		assertEquals(0, response.getTotalElements());
+		assertEquals(1, response.getTotalPages());	
+	}
+	
+	@Test
 	void shouldReturnPageableListOfProducsByCategoryId() {		
 		when(repository.findByCategoryId(anyInt(), any(Pageable.class))).thenReturn(TestMass.getPageProduct());
 
