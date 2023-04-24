@@ -81,7 +81,7 @@ class ProductsControllerTest {
 	}
 	
 	@Test
-	void shouldReturnPageOfProductsByCategory() throws Exception {		
+	void shouldReturnPageOfProductsByCategoryId() throws Exception {		
 		when(service.findByCategoryId(anyInt(), any(Pageable.class))).thenReturn(TestMass.getPageProduct());
 		
 		mockMvc.perform(get("/products/1")				
@@ -96,7 +96,7 @@ class ProductsControllerTest {
 	}
 	
 	@Test
-	void shouldReturnEmptyPageOfProductsByCategory() throws Exception {		
+	void shouldReturnEmptyPageOfProductsByCategoryId() throws Exception {		
 		when(service.findByCategoryId(anyInt(), any(Pageable.class))).thenReturn(TestMass.getEmptyPageProduct());
 		ArrayList<Object> emptyArrayList = new ArrayList<>();
 		
