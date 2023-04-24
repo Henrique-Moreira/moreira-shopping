@@ -73,9 +73,9 @@ class ProductsServiceImplTest {
 	@Test
 	void shouldReturnEmptyById() {		
 		when(repository.findById(anyInt(), any(Pageable.class))).thenReturn(TestMass.getEmptyPageProduct());
-		
+
 		Page<Product> response = this.service.findById(1, pageable);
-		
+
 		verify(repository, times(1)).findById(anyInt(), any(Pageable.class));	
 		assertEquals(0, response.getTotalElements());
 		assertEquals(1, response.getTotalPages());	

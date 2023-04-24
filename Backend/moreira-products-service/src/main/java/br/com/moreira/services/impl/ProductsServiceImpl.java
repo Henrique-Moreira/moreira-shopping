@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import br.com.moreira.models.Product;
 import br.com.moreira.repositories.ProductsRepository;
 import br.com.moreira.services.ProductsService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class ProductsServiceImpl implements ProductsService {
 
@@ -20,17 +22,20 @@ public class ProductsServiceImpl implements ProductsService {
 	}
 
 	@Override
-	public Page<Product> allProducts(Pageable pageable) {		
+	public Page<Product> allProducts(Pageable pageable) {	
+		log.info("allProducts: searching all products in the base");
 		return repository.findAll(pageable);
 	}
 	
 	@Override
 	public Page<Product> findById(int id, Pageable pageable) {
+		log.info("findById: searching an product in the base with id = {}", id);
 		return repository.findById(id, pageable);
 	}
 
 	@Override
 	public Page<Product> findByCategoryId(int id, Pageable pageable) {
+		log.info("findByCategoryId: searching products in the base with category id = {}", id);
 		return repository.findByCategoryId(id, pageable);
 	}
 
