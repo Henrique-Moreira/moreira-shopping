@@ -44,4 +44,15 @@ public class ProductsController {
 	public ResponseEntity<Page<Product>> findByCategoryId(@PathVariable int categoryId , @ParameterObject Pageable pageable) {
 		return ResponseEntity.ok(service.findByCategoryId(categoryId, pageable));
 	}
+    
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "When does not found any product in the database.")})
+    @Operation(summary = "Product paginated according id",
+    			description = "The default size is 20, use the parameter size to change the default value",
+    			tags = {"product"})
+	@GetMapping("{productId}")
+	public ResponseEntity<Page<Product>> findById(@PathVariable int productId , @ParameterObject Pageable pageable) {
+		return ResponseEntity.ok(service.findById(productId, pageable));
+	}
 }
