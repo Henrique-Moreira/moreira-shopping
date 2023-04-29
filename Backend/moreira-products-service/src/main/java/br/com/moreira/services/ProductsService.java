@@ -3,6 +3,7 @@ package br.com.moreira.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import br.com.moreira.dto.ProductDto;
 import br.com.moreira.models.Product;
 
 public interface ProductsService {
@@ -29,4 +30,11 @@ public interface ProductsService {
 	 * @return A page of {@link Product} objects that match the pagination and id of category provided.
 	 */
 	public Page<Product> findByCategoryId(int id, Pageable pageable);
+	
+	/**
+	 * Returns the product data that was saved in the request.
+	 * @param product data to be saved
+	 * @return The product that was saved.
+	 */
+	public Product save(ProductDto productDto);
 }
