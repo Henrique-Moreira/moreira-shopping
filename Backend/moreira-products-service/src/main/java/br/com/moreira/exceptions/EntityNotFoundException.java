@@ -1,17 +1,13 @@
 package br.com.moreira.exceptions;
 
-public class CategoryException extends GenericException {
-    private static final long serialVersionUID = 1L;
+public class EntityNotFoundException extends GenericException {
+	private static final long serialVersionUID = 1L;
+    
+	public EntityNotFoundException(String message) {
+		super(message);
+	}
 
-    public CategoryException(String message) {
-        super(message);
-    }
-
-    public CategoryException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public static CategoryException categoryNotFoundException(Long categoryId) {
-        return new CategoryException("Category with id " + categoryId + " not found.");
+    public static EntityNotFoundException entityNotFoundException(Long categoryId) {
+        return new EntityNotFoundException("Entity with id " + categoryId + " not found.");
     }
 }
