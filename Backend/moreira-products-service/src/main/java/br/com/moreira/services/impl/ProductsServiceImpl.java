@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.moreira.dto.ProductDto;
+import br.com.moreira.exceptions.EntityNotFoundException;
 import br.com.moreira.models.Category;
 import br.com.moreira.models.Product;
 import br.com.moreira.repositories.ProductsRepository;
@@ -55,7 +56,6 @@ public class ProductsServiceImpl implements ProductsService {
 					.category(category.get())
 					.build();
 		}
-		log.error("save: error saving new product, category id = {} does not exist.", productDto.getCategoryId());
-		return null;
-	}	
+		throw new EntityNotFoundException(productDto.getId().toString());
+	}
 }
