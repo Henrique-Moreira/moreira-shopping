@@ -27,13 +27,16 @@ class ProductsServiceImplTest {
 	@Mock
 	private ProductsServiceImpl service;
 	
+	@Mock
+	private CategoryServiceImpl categoryService;
+	
 	Pageable pageable;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
 		
-		service = new ProductsServiceImpl(repository);
+		service = new ProductsServiceImpl(repository, categoryService);
 		pageable = PageRequest.of(0, 2);
 	}	
 	
