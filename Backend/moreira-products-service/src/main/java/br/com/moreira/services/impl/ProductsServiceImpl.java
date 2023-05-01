@@ -1,12 +1,16 @@
 package br.com.moreira.services.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.moreira.dto.ProductDto;
+import br.com.moreira.models.Category;
 import br.com.moreira.models.Product;
 import br.com.moreira.repositories.ProductsRepository;
+import br.com.moreira.services.CategoryService;
 import br.com.moreira.services.ProductsService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,11 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ProductsServiceImpl implements ProductsService {
 
-	@Autowired
-	private ProductsRepository repository;
+	private final ProductsRepository repository;
+	private final CategoryService categoryService;
 	
-	public ProductsServiceImpl(ProductsRepository repository) {
+	public ProductsServiceImpl(ProductsRepository repository, CategoryService categoryService) {
 		this.repository = repository;
+		this.categoryService = categoryService;
 	}
 
 	@Override
@@ -39,4 +44,15 @@ public class ProductsServiceImpl implements ProductsService {
 		return repository.findByCategoryId(id, pageable);
 	}
 
+	@Override
+	public Product save(ProductDto productDto) {
+		Optional<Category> category = categoryService.findById(productDto.getCategoryId());
+		
+		Product product = Product.builder()
+				.name(productDto.getName())
+				.price(productDto.getPrice())
+				.category(category.get())
+				.build();
+		return repository.save(product);
+	}
 }
