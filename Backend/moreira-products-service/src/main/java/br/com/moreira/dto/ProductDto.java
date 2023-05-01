@@ -1,7 +1,7 @@
 package br.com.moreira.dto;
 
-import java.io.Serializable;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,12 +11,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDto implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ProductDto {
 
-	private Long id;
+	@NotBlank(message = "product name must not be blank.")
 	private String name;
+	
+	@NotNull(message = "product price must not be null.")
 	private float price;
+	
+	@NotNull(message = "category id must not be null.")
 	private Long categoryId;
 }
 
